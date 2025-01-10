@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Fetch and display courses dynamically
     fetchCourses();
 });
 
 function fetchCourses() {
-    fetch('api/courses.php') // Replace with your PHP backend endpoint
+    fetch('api/courses.php')
         .then(response => response.json())
         .then(data => {
             let courseList = document.getElementById("course-list");
@@ -22,7 +21,7 @@ function fetchCourses() {
 }
 
 function enroll(courseId) {
-    let userId = 1; // Assume logged-in user id
+    let userId = 1;
     fetch('api/enroll.php', {
         method: 'POST',
         headers: {
