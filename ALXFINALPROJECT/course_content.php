@@ -1,14 +1,12 @@
 <?php
 include('db.php');
 
-// Check if course_id is provided
 if (!isset($_GET['course_id'])) {
     die("Course ID not provided.");
 }
 
 $course_id = $_GET['course_id'];
 
-// Fetch course details (title and description)
 $course_query = "SELECT title, description FROM courses WHERE id = ?";
 $course_stmt = mysqli_prepare($conn, $course_query);
 
@@ -22,7 +20,6 @@ mysqli_stmt_execute($course_stmt);
 $course_result = mysqli_stmt_get_result($course_stmt);
 $course = mysqli_fetch_assoc($course_result);
 
-// Fetch course content (topics and paragraphs)
 $content_query = "SELECT title, content FROM course_content WHERE course_id = ? AND content_type = 'Article'";
 $content_stmt = mysqli_prepare($conn, $content_query);
 
@@ -35,7 +32,6 @@ mysqli_stmt_execute($content_stmt);
 
 $content_result = mysqli_stmt_get_result($content_stmt);
 
-// Store course content in an array
 $course_content = [];
 while ($row = mysqli_fetch_assoc($content_result)) {
     $course_content[] = $row;
@@ -50,14 +46,12 @@ while ($row = mysqli_fetch_assoc($content_result)) {
     <title>Course Content - <?php echo htmlspecialchars($course['title']); ?></title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Global Reset */
-        * {
+        {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body Styles */
          body {
             font-family: Arial, sans-serif;
             background-color: #4CAF50;
@@ -66,10 +60,9 @@ while ($row = mysqli_fetch_assoc($content_result)) {
             padding: 0;
         }
 
-        /* Header */
         header {
             text-align: center;
-            background-color: rgba(0, 123, 255, 0.7); /* Semi-transparent header background */
+            background-color: rgba(0, 123, 255, 0.7);
             color: white;
             padding: 20px;
         }
@@ -83,12 +76,11 @@ while ($row = mysqli_fetch_assoc($content_result)) {
             font-size: 18px;
         }
 
-        /* Main Content Section */
         main {
             max-width: 900px;
             margin: 30px auto;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
@@ -99,14 +91,12 @@ while ($row = mysqli_fetch_assoc($content_result)) {
             line-height: 1.6;
         }
 
-        /* Paragraphs */
         .course-content p {
             margin-bottom: 15px;
             line-height: 1.8;
             color: #555;
         }
 
-        /* Headings */
         .course-content h2, .course-content h3 {
             font-size: 22px;
             font-weight: bold;
@@ -123,7 +113,6 @@ while ($row = mysqli_fetch_assoc($content_result)) {
             margin-top: 15px;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 10px 0;
@@ -136,7 +125,6 @@ while ($row = mysqli_fetch_assoc($content_result)) {
             font-size: 14px;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             main {
                 padding: 15px;
